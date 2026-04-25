@@ -66,6 +66,15 @@ Then fill in `PROJECT.md` with your repo's commands, architecture docs,
 source-of-truth files, validation suites, debugging paths, and constraints.
 Keep `AGENTS.md` and `PLANS.md` mostly generic.
 
+To have Codex fill `PROJECT.md` for you, open a Codex chat in your repo and
+paste:
+
+```text
+Read this repository, then fill PROJECT.md with the project-specific
+architecture, commands, validation steps, debugging paths, source-of-truth files,
+and long-running task notes. Keep AGENTS.md and PLANS.md generic.
+```
+
 For normal tasks, just ask Codex normally.
 
 For an extended long-running task, copy `PROMPT.md` into a fresh Codex chat and
