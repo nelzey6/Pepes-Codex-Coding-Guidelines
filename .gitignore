@@ -1,0 +1,6 @@
+# Local run state for long-running agent tasks
+docs/runs/**/STATUS.md
+
+# Common local/editor noise
+.DS_Store
+*.log
