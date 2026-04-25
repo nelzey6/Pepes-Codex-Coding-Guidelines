@@ -9,6 +9,9 @@ docs/runs/<yyyy-mm-dd>-<short-slug>/STATUS.md
 
 Run-scoped `STATUS.md` files are gitignored local execution state.
 
+Use `PROJECT.md` for project-specific architecture, commands, validation,
+debugging paths, evidence sources, and constraints.
+
 ## Activation
 
 Use this blueprint only when explicitly asked for a long-running/autonomous
@@ -29,6 +32,7 @@ architecture truth.
 
 - Goal:
 - Non-goals:
+- Project guidance:
 - Evidence sources:
 - Completion criteria:
 - Stop conditions:
@@ -53,6 +57,7 @@ architecture truth.
 ### Phase 1: Reassess
 
 - [ ] Read `git status`.
+- [ ] Read `PROJECT.md`.
 - [ ] Inspect evidence before speculation.
 - [ ] Inspect code, tests, logs/traces, runtime records, and active docs.
 - [ ] Record root-cause stance and next improvement.
@@ -174,6 +179,8 @@ Next exact action:
 ## Long-Running Rules
 
 - Reassess from evidence before coding.
+- Use `PROJECT.md` for project-specific commands, docs, evidence paths,
+  architecture notes, and constraints.
 - Review architecture before patching.
 - Continue until completion criteria are met.
 - Keep durable code generic across validation examples.
@@ -182,6 +189,7 @@ Next exact action:
   when certainty matters.
 - Treat product/runtime quality as a primary health signal.
 - Treat complexity accretion as a bug.
+- Update `PROJECT.md` only when durable project-specific guidance changes.
 
 ## Complexity Rules
 

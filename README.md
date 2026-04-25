@@ -27,13 +27,16 @@ drift.
 ## What Is Inside
 
 - `AGENTS.md`: durable repository rules for Codex and other coding agents.
+- `PROJECT.md`: project-specific architecture, commands, validation, debugging,
+  and source-of-truth notes.
 - `PLANS.md`: blueprint for extended long-running autonomous tasks.
 - `PROMPT.md`: copyable starter prompt for long-running tasks.
 - `docs/runs/<date>-<slug>/STATUS.md`: ignored, run-scoped live task state.
 
-The key idea is separation of concerns: durable rules live in `AGENTS.md`, the
-long-running workflow blueprint lives in `PLANS.md`, and temporary execution
-state lives in ignored run-scoped status files.
+The key idea is separation of concerns: durable rules live in `AGENTS.md`,
+project facts live in `PROJECT.md`, the long-running workflow blueprint lives
+in `PLANS.md`, and temporary execution state lives in ignored run-scoped status
+files.
 
 ## Why Use This
 
@@ -53,18 +56,21 @@ Copy these files into your repository root:
 
 ```text
 AGENTS.md
+PROJECT.md
 PLANS.md
 PROMPT.md
 .gitignore
 ```
 
-Then customize project-specific sections in `AGENTS.md`, especially commands,
-architecture docs, source-of-truth files, and validation suites.
+Then fill in `PROJECT.md` with your repo's commands, architecture docs,
+source-of-truth files, validation suites, debugging paths, and constraints.
+Keep `AGENTS.md` and `PLANS.md` mostly generic.
 
 For normal tasks, just ask Codex normally.
 
 For an extended long-running task, copy `PROMPT.md` into a fresh Codex chat and
-replace the goal placeholder.
+replace the goal placeholder. `PROMPT.md` is intended to be copy-pasted into a
+new chat, not executed as a script.
 
 ## Philosophy
 

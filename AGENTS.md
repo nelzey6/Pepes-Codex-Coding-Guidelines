@@ -9,16 +9,20 @@ change.
 When sources disagree, prefer:
 
 1. Current code, schema, tests, and runtime evidence
-2. Active architecture docs and ADRs
-3. Project handbook docs
-4. Archived docs and old run logs
-5. Thread memory
+2. Project-specific guidance in `PROJECT.md`
+3. Active architecture docs and ADRs
+4. Project handbook docs
+5. Archived docs and old run logs
+6. Thread memory
 
-Customize the project-specific docs and commands after copying this template.
+Customize project-specific docs, commands, evidence paths, and constraints in
+`PROJECT.md` after copying this template.
 
 ## Workflow Files
 
 - `AGENTS.md`: durable repo rules.
+- `PROJECT.md`: project-specific architecture, commands, validation, debugging,
+  and source-of-truth notes.
 - `PLANS.md`: stable blueprint for extended long-running tasks.
 - `docs/runs/<date>-<slug>/STATUS.md`: gitignored live state for one
   long-running task.
@@ -37,7 +41,7 @@ Unless the user explicitly asks for a long-running/autonomous workflow:
 ## Fresh Session
 
 1. Read `git status`.
-2. Read the relevant project docs.
+2. Read `PROJECT.md` and the relevant project docs.
 3. Identify the likely owner module before editing.
 4. Inspect tests, logs, traces, or runtime evidence before broad speculation.
 
@@ -47,8 +51,8 @@ Use only when explicitly requested, for example "start a long-running task" or
 "run autonomously for hours".
 
 1. Create or continue `docs/runs/<date>-<slug>/STATUS.md` from `PLANS.md`.
-2. Reassess from evidence: code, tests, logs, traces, runtime records, debug
-   artifacts, and active docs.
+2. Read `PROJECT.md`, then reassess from evidence: code, tests, logs, traces,
+   runtime records, debug artifacts, and active docs.
 3. Build a broad architecture/root-cause overview before local fixes.
 4. Perform architecture decision review before coding: owner, seam/interface,
    dependency direction, state owner, file/module cohesion, and why this is the
@@ -117,8 +121,9 @@ Use only when explicitly requested, for example "start a long-running task" or
 
 ## Validation
 
-Discover the repository's own commands. Do not assume a language, framework,
-package manager, or build tool.
+Discover the repository's own commands from `PROJECT.md`, project docs, task
+runners, or CI. Do not assume a language, framework, package manager, or build
+tool.
 
 Common validation categories:
 

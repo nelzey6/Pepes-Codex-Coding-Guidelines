@@ -1,8 +1,9 @@
 Start a long-running autonomous coding task.
 
-Follow `AGENTS.md` and use root `PLANS.md` as the blueprint. Create or continue
-one run-scoped `docs/runs/<date>-<slug>/STATUS.md`. Do not create root
-`STATUS.md` and do not write live task state into root `PLANS.md`.
+Follow `AGENTS.md`, read `PROJECT.md` for project-specific guidance, and use
+root `PLANS.md` as the blueprint. Create or continue one run-scoped
+`docs/runs/<date>-<slug>/STATUS.md`. Do not create root `STATUS.md` and do not
+write live task state into root `PLANS.md`.
 
 Goal:
 <Describe the long-running goal here.>
