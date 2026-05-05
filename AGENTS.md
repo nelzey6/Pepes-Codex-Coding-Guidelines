@@ -1,143 +1,66 @@
 # Repository Guidelines
 
-Durable coding-agent guidance for this repository. Keep this file concise and
-update it only when workflow, architecture, validation, or agent operating rules
-change.
+Durable rules for Codex and other coding agents in this repository.
+
+## Default Mode
+
+Default to long-running plan mode for every code-changing request.
+
+Do not patch immediately unless the user explicitly says:
+
+```text
+implement directly
+```
+
+Without that phrase, before editing code:
+
+1. Read `git status`.
+2. Read `PROJECT.md` and relevant docs.
+3. Create or continue `docs/runs/<date>-<slug>/STATUS.md` from `PLANS.md`.
+4. Inspect evidence: code, tests, logs, traces, runtime records, and active docs.
+5. Record the goal, root-cause/architecture stance, complexity budget,
+   validation plan, and next action in the run-scoped `STATUS.md`.
+6. Only then implement, validate, reassess, and update `STATUS.md`.
+
+Read-only questions, reviews, and explanations do not need run state unless the
+user asks for an implementation plan.
 
 ## Source Of Truth
 
 When sources disagree, prefer:
 
-1. Current code, schema, tests, and runtime evidence
-2. Project-specific guidance in `PROJECT.md`
+1. Current code, schemas, tests, and runtime evidence
+2. `PROJECT.md`
 3. Active architecture docs and ADRs
-4. Project handbook docs
+4. Handbook docs
 5. Archived docs and old run logs
 6. Thread memory
-
-Customize project-specific docs, commands, evidence paths, and constraints in
-`PROJECT.md` after copying this template.
 
 ## Workflow Files
 
 - `AGENTS.md`: durable repo rules.
-- `PROJECT.md`: project-specific architecture, commands, validation, debugging,
-  and source-of-truth notes.
-- `PLANS.md`: stable blueprint for extended long-running tasks.
-- `docs/runs/<date>-<slug>/STATUS.md`: gitignored live state for one
-  long-running task.
+- `PROJECT.md`: project-specific commands, architecture, evidence, constraints.
+- `PLANS.md`: long-running plan blueprint.
+- `docs/runs/<date>-<slug>/STATUS.md`: gitignored live run state.
 
-Do not create a root `STATUS.md`. Do not put live task state in root
-`PLANS.md`.
-
-## Normal Tasks
-
-Unless the user explicitly asks for a long-running/autonomous workflow:
-
-- Do not create run-scoped status files.
-- Do not update root `PLANS.md`.
-- Plan in the conversation when useful, then implement and validate directly.
-
-## Fresh Session
-
-1. Read `git status`.
-2. Read `PROJECT.md` and the relevant project docs.
-3. Identify the likely owner module before editing.
-4. Inspect tests, logs, traces, or runtime evidence before broad speculation.
-
-## Long-Running Workflow
-
-Use only when explicitly requested, for example "start a long-running task" or
-"run autonomously for hours".
-
-1. Create or continue `docs/runs/<date>-<slug>/STATUS.md` from `PLANS.md`.
-2. Read `PROJECT.md`, then reassess from evidence: code, tests, logs, traces,
-   runtime records, debug artifacts, and active docs.
-3. Build a broad architecture/root-cause overview before local fixes.
-4. Perform architecture decision review before coding: owner, seam/interface,
-   dependency direction, state owner, file/module cohesion, and why this is the
-   simplest durable shape.
-5. Define a complexity budget: expected deletions, allowed new guards, ownership
-   seams to simplify, and what would be too complex to keep.
-6. Implement the smallest durable improvement.
-7. Validate with targeted checks first, then broader gates when needed.
-8. Reassess from multiple scopes and continue until the run-scoped `STATUS.md`
-   completion criteria are met or a user-owned decision is required.
+Do not create root `STATUS.md`. Do not put live run state in `PLANS.md`.
 
 ## Architecture Rules
 
 - Architecture review comes before patching.
-- Keep files cohesive; do not grow huge catch-all files.
-- Prefer clear ownership seams over scattered procedural patches.
-- Use interfaces/classes/adapters only when they clarify ownership or reduce
-  coupling.
-- Avoid hidden cross-layer backchannels, root-cause-specific guards, and
-  side-effect links.
-- Route behavior through the owning seam.
-
-## Replacement-Layer Discipline
-
-- Do not add a replacement layer until the layer it replaces is deleted,
-  retired, or fenced behind a short migration bridge.
-- If a bridge is necessary, record the owner, deletion trigger, and validation
-  needed to remove it.
-- Do not mark work complete while old and new layers remain authoritative for
-  the same responsibility.
-
-## Complexity Rules
-
-- Treat complexity accretion as a bug.
-- Default to deletion-first and reshape-first.
-- Before adding logic, look for stale compatibility paths, duplicated ownership,
-  broad conditionals, misplaced responsibilities, and historical patches that
-  can be removed or moved.
-- Track net LOC, new conditionals, guards, fallbacks, helper layers, and state
-  surfaces after major implementation passes.
-- If the patch mainly wraps symptoms with guards, choose a root-cause refactor.
-- Large net-new patches must be justified by clearer ownership, removed
-  obsolete code, better source-of-truth boundaries, or measurable
-  product/runtime gains.
-
-## Genericity
-
-- Durable code should be generic across users, workspaces, tenants, datasets,
-  environments, and validation examples unless explicitly scoped otherwise.
-- Use concrete examples only as validation evidence.
-- Never hardcode the current validation user, workspace, topic, source id,
-  query text, customer, file path, or dataset-specific condition into durable
-  production code.
-
-## Autonomy And Completion
-
-- Do not stop after one shallow progress signal.
-- Queued/running work, deferred outcomes, repeated requeues, retry uncertainty,
-  or active background jobs are intermediate states.
-- Only conclude when the run-scoped `STATUS.md` checklist is complete and
-  required validations pass.
-- Stop only for undiagnosable validation failures, destructive/irreversible
-  choices, broad schema/API decisions, or user-owned product/architecture
-  tradeoffs.
-- If something fails, diagnose, fix, log evidence and resolution, and continue.
+- Route behavior through the owning module/seam.
+- Prefer deletion, reshaping, and reuse over guards or patch layers.
+- Keep files cohesive; avoid catch-all modules.
+- Do not add replacement layers unless the old layer is deleted, retired, or
+  fenced with a removal trigger.
+- Keep durable code generic; do not hardcode the current user, tenant,
+  workspace, dataset, file path, or validation example.
 
 ## Validation
 
-Discover the repository's own commands from `PROJECT.md`, project docs, task
-runners, or CI. Do not assume a language, framework, package manager, or build
-tool.
+Discover commands from `PROJECT.md`, docs, CI, task runners, or build files.
+Use the smallest targeted check that proves the change, then broader checks when
+risk warrants it.
 
-Common validation categories:
-
-- formatting
-- lint/static analysis
-- compile/typecheck, when applicable
-- targeted tests
-- full test suite
-- build/package
-- smoke/integration checks
-
-Find commands in project docs, `Makefile`, task runner configs, CI workflows,
-or build manifests. Use the smallest targeted check that proves the change,
-then run the broader gate appropriate for the risk.
-
-Before final handoff, inspect `git diff`, confirm unrelated changes were not
-reverted, run required validation, and summarize residual risks.
+Before handoff, inspect `git diff`, confirm unrelated changes were not reverted,
+summarize validation, and note residual risks.
