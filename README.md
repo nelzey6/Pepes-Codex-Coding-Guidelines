@@ -1,4 +1,4 @@
-# Pepe's Codex Coding Guidelines
+# Codex Coding Guidelines
 
 Reusable coding-agent guidelines for public GitHub repositories.
 
@@ -15,7 +15,6 @@ implement directly
 - `AGENTS.md`: durable agent rules.
 - `PROJECT.md`: project-specific commands, architecture, evidence, constraints.
 - `PLANS.md`: long-running plan blueprint and `STATUS.md` template.
-- `PROMPT.md`: starter prompt.
 - `docs/runs/<date>-<slug>/STATUS.md`: ignored live state for one run.
 
 ## Rules
@@ -36,7 +35,6 @@ Copy into a repo root:
 AGENTS.md
 PROJECT.md
 PLANS.md
-PROMPT.md
 .gitignore
 ```
 
